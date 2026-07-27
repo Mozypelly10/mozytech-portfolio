@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const project = await prisma.project.findUnique({
-    where: { id: req.params.id },
+    where: { id: String(req.params.id) },
   });
   if (!project) {
     return res.status(404).json({ error: 'Project not found' });
@@ -48,7 +48,7 @@ router.post(
 router.put('/:id', requireAuth, async (req: AuthRequest, res) => {
   try {
     const project = await prisma.project.update({
-      where: { id: req.params.id },
+      where: { id: String(req.params.id) },
       data: req.body,
     });
     res.json(project);
@@ -59,7 +59,7 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res) => {
 
 router.delete('/:id', requireAuth, async (req: AuthRequest, res) => {
   try {
-    await prisma.project.delete({ where: { id: req.params.id } });
+    await prisma.project.delete({ where: { id: String(req.params.id) } });
     res.status(204).send();
   } catch (err) {
     res.status(404).json({ error: 'Project not found' });
