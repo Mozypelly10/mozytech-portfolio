@@ -13,6 +13,7 @@ client/.next/
 client/out/
 
 # Build output
+deployment/
 server/dist/
 server/generated/
 **/generated/
