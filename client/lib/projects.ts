@@ -111,7 +111,7 @@ export const portfolioProjects: Project[] = [
     title: "Orbit Broadband — Logo Design",
     description: "A broadband identity built around an orbital symbol that takes the place of the O in Orbit. Cyan and coral accents, wireless signal details and the supporting wordmark communicate connectivity.",
     techStack: ["Logo Design", "Typography", "Telecommunications Branding"],
-    imageUrl: "/projects/orbit-logo.jpg",
+    imageUrl: "/projects/orbit-approved-logo.jpeg",
     category: "Branding & design",
     note: "Logo & brand identity",
     featured: false,
@@ -141,11 +141,12 @@ export const portfolioProjects: Project[] = [
   {
     id: "wonzay-brand-identity",
     title: "Wonzay Kollections — Full Branding",
-    aliases: ["Wonzay Kollections — Brand Identity"],
+    aliases: ["Wonzay Kollections — Brand Identity", "Wonzay Kollections — Logo Design"],
     description: "A branding project bringing together logo design, typography, stationery, packaging artwork and social templates for Wonzay Kollections, with an editable handoff for the business owner.",
+    imageUrl: "/projects/wonzay-approved-logo.jpeg",
     techStack: ["Visual Identity", "Logo System", "Typography", "Packaging", "Print Design", "Social Templates"],
     category: "Branding & design",
-    highlights: ["Primary logo, monogram, wordmark and colour variants", "Business card, letterhead, quotation and invoice artwork", "Clothing tags, packaging, stickers and thank-you cards", "Social templates, email-signature artwork and editable owner handoff"],
+    highlights: ["Original monogram, primary logo and wordmark system", "Purple, gold and ivory palette with Playfair Display and Inter typography", "Business card, letterhead, quotation and invoice artwork", "Clothing tags, packaging, stickers and thank-you cards", "Social templates, email-signature artwork and editable owner handoff"],
     note: "Brand identity, packaging & digital design",
     featured: false,
     createdAt: "",
@@ -176,8 +177,12 @@ export function mergeProjects(existing: Project[]): Project[] {
     const [project] = remaining.splice(index, 1);
     return { ...entry, ...project,
       ...(entry.id === "wonzay-brand-identity" ? {
-        title: entry.title, description: entry.description, imageUrl: undefined,
-        featured: false, note: entry.note,
+        title: entry.title, description: entry.description, imageUrl: entry.imageUrl,
+        featured: false, note: entry.note, highlights: entry.highlights,
+        techStack: entry.techStack, category: entry.category,
+      } : {}),
+      ...(["mozytech-identity", "orbit-broadband-identity"].includes(entry.id) ? {
+        imageUrl: entry.imageUrl, category: entry.category,
       } : {}),
       ...(entry.id === "classbridge" ? {
         title: entry.title, description: entry.description, techStack: entry.techStack,

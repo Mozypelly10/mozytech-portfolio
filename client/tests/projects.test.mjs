@@ -34,13 +34,13 @@ test("repository links identify existing projects despite different titles", () 
   assert.equal(projects.find((project) => project.id === "mailer-app").description, "Existing mailer content");
 });
 
-test("unapproved Wonzay artwork cannot return from older database content", () => {
+test("approved Wonzay artwork replaces older database artwork", () => {
   const branding = portfolioProjects.find((project) => project.id === "wonzay-brand-identity");
   const existing = { ...branding, id: "older-database-id", title: "Wonzay Kollections — Brand Identity", imageUrl: "/projects/wonzay-brand.png", featured: true };
   const projects = mergeProjects([existing]);
   assert.equal(projects.length, 12);
   const merged = projects.find((project) => project.id === "older-database-id");
-  assert.equal(merged.imageUrl, undefined);
+  assert.equal(merged.imageUrl, "/projects/wonzay-approved-logo.jpeg");
   assert.equal(merged.featured, false);
 });
 

@@ -31,10 +31,13 @@ company identity, Orbit Broadband logo, monthly greeting flyers and this
 portfolio website. Web/desktop, mobile, cloud, logo/branding, flyer and
 automation filters expose the different areas of work.
 
-The previous Wonzay logo previews are not used: the owner identified them as
-different from their own artwork. Replace the Wonzay card image only after
-the correct logo is supplied. Monthly greeting flyer images have not yet been
-located, so the collection describes the work without inventing examples.
+The logo gallery shows MOZYTECH, Wonzay Kollections and Orbit Broadband
+together. Wonzay and Orbit use the original JPEGs supplied by the owner on
+13 October 2026. Wonzay's case-study details follow the supplied 17-page
+`Monogram.pdf` brand guidelines. The About section follows the supplied IT,
+Cybersecurity and Cloud CV; the CV itself and its personal contact details
+are not published. Monthly greeting flyer images have not yet been located,
+so the collection describes the work without inventing examples.
 
 Run `npm test` with Node.js 22.18+ or 24+ to check catalogue merging.
 

@@ -2,6 +2,7 @@ import { getProjects } from "@/lib/api";
 import ContactForm from "@/components/ContactForm";
 import ProjectGallery from "@/components/ProjectGallery";
 import Image from "next/image";
+import { portfolioProjects } from "@/lib/projects";
 
 const skills = ["Penetration testing", "Network security", "AWS infrastructure", "CI/CD automation", "Django deployment", "PostgreSQL", "Flutter & Firebase", "Linux administration", "Visual identity", "Technical mentorship"];
 const services = [
@@ -47,12 +48,19 @@ export default async function Home() {
 
     <section id="projects" className="work-section section-shell">
       <div className="section-heading"><div><p className="eyebrow">01 — My projects & creative work</p><h2>Different disciplines.<br /><em>The same attention to detail.</em></h2></div><p>Web and mobile apps, cloud deployments, logo identities, flyers and automation. Explore the full range of my work below.</p></div>
+      <div className="logo-showcase">
+        <div className="logo-showcase-heading"><h3>Three logos. Three distinct identities.</h3><p>Original logo designs for MOZYTECH, Wonzay Kollections and Orbit Broadband.</p></div>
+        <div className="logo-showcase-grid">{["mozytech-identity", "wonzay-brand-identity", "orbit-broadband-identity"].map((id) => {
+          const project = portfolioProjects.find((item) => item.id === id)!;
+          return <a key={id} className={`logo-showcase-item logo-${id}`} href={project.imageUrl!} target="_blank" rel="noopener noreferrer" aria-label={`View full ${project.title} logo`}><div className="logo-showcase-image"><Image src={project.imageUrl!} alt={`${project.title} — original logo artwork`} fill sizes="(max-width: 720px) 100vw, 33vw" /></div><div className="logo-showcase-caption"><span>{id === "mozytech-identity" ? "MOZYTECH" : id === "wonzay-brand-identity" ? "Wonzay Kollections" : "Orbit Broadband"}</span><span aria-hidden="true">↗</span></div></a>;
+        })}</div>
+      </div>
       <ProjectGallery projects={projects} />
     </section>
 
     <section id="about" className="about-section section-shell">
       <div><p className="eyebrow">02 — The person behind the work</p><h2>Curious by nature.<br /><em>Practical by approach.</em></h2><p className="about-signature">Oluwafemi Moses Durosomo<span>Mozytech · Nigeria</span></p></div>
-      <div className="about-copy"><p>I help businesses identify security weaknesses, deploy secure cloud infrastructure and turn ideas into usable applications. My work connects technical thinking with a strong eye for how things look and feel.</p><p>From penetration testing and Linux administration to Flutter applications and complete brand identities, I enjoy taking a project from its first question to a considered result.</p><p>I also teach cybersecurity and IT to students and professionals through online and in-person training, making complex ideas easier to put into practice.</p><div className="skills-list">{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div>
+      <div className="about-copy"><p>I’m an IT support and cybersecurity professional based in Lagos, Nigeria, with a background in Computer Engineering. My experience ranges from repairing and configuring computers to supporting networks, troubleshooting systems and helping people use technology with confidence.</p><p>I hold a Higher National Diploma in Computer Engineering from Osun State Polytechnic, Iree. My career includes technical support at Javadome Group of Companies, school operations and technical support during NYSC, and cybersecurity and ICT instruction at N-Tech Systems since October 2024. Teaching has strengthened my ability to explain complex topics clearly and build practical learning materials.</p><p>Today, I bring that foundation to cloud infrastructure, application development and creative work through MOZYTECH. My projects include a secured AWS e-commerce deployment, a desktop mail application, Python automation, Flutter mobile development, ClassBridge school software, and original logos and full brand identities.</p><div className="career-facts"><div><span>Education</span><strong>HND · Computer Engineering</strong><p>Osun State Polytechnic, Iree · 2020–2022</p></div><div><span>Current teaching role</span><strong>Cybersecurity & ICT Instructor</strong><p>N-Tech Systems, Osogbo · Since October 2024</p></div><div><span>Training</span><strong>Ethical hacking & infrastructure protection</strong><p>APTECH Nigeria · AQSkill · OPSWAT Academy</p></div></div><div className="skills-list">{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div>
     </section>
 
     <section id="contact" className="contact-section section-shell">
