@@ -2,7 +2,7 @@ import { getProjects } from "@/lib/api";
 import ContactForm from "@/components/ContactForm";
 
 export default async function Home() {
-  const projects = await getProjects().catch(() => []);
+  const projects = await getProjects();
 
   return (
     <main className="flex flex-1 flex-col">
@@ -138,8 +138,12 @@ export default async function Home() {
             PROJECTS
           </p>
           <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
-            Selected work
+            Projects &amp; applications
           </h2>
+          <p className="mt-4 text-[var(--color-text-dim)]">
+            Explore my work across school software, cloud infrastructure, mobile
+            apps and automation. Open a live site or browse the source code below.
+          </p>
 
           {projects.length === 0 ? (
             <p className="mt-8 rounded-md border border-dashed border-[var(--color-border)] px-6 py-10 text-center font-mono text-sm text-[var(--color-text-dim)]">
@@ -152,6 +156,10 @@ export default async function Home() {
                   key={project.id}
                   className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
                 >
+                  <div className="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs text-[var(--color-text-dim)]">
+                    {project.category && <span>{project.category}</span>}
+                    {project.featured && <span className="rounded border border-[var(--color-amber)] px-2 py-0.5 text-[var(--color-amber)]">FEATURED</span>}
+                  </div>
                   <h3 className="text-lg font-semibold">{project.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-dim)]">
                     {project.description}
@@ -166,10 +174,12 @@ export default async function Home() {
                       </span>
                     ))}
                   </div>
+                  {project.note && <p className="mt-4 text-xs text-[var(--color-text-dim)]">{project.note}</p>}
                   <div className="mt-5 flex gap-4 font-mono text-xs">
                     {project.githubUrl && (
                       
                       <a href={project.githubUrl}
+                        aria-label={`View ${project.title} source on GitHub`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[var(--color-amber)] hover:underline"
@@ -180,11 +190,12 @@ export default async function Home() {
                     {project.liveUrl && (
                       
                       <a href={project.liveUrl}
+                        aria-label={`Visit ${project.title}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[var(--color-amber)] hover:underline"
                       >
-                        Live &rarr;
+                        Visit site &rarr;
                       </a>
                     )}
                   </div>

@@ -1,23 +1,19 @@
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  techStack: string[];
-  githubUrl?: string | null;
-  liveUrl?: string | null;
-  imageUrl?: string | null;
-  featured: boolean;
-  createdAt: string;
-}
+import { mergeProjects, type Project } from "./projects";
+export type { Project } from "./projects";
 
 export async function getProjects(): Promise<Project[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/projects`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch projects");
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) return mergeProjects([]);
+  try {
+    const res = await fetch(`${apiUrl.replace(/\/+$/, "")}/projects`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) throw new Error("Failed to fetch projects");
+    const projects: Project[] = await res.json();
+    if (!Array.isArray(projects)) throw new Error("Invalid project response");
+    return mergeProjects(projects);
+  } catch {
+    return mergeProjects([]);
   }
-
-  return res.json();
 }

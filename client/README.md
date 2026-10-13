@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Portfolio projects
+
+Public project cards are maintained in `lib/projects.ts`. Add a card there with
+its title, description, technologies and any public source or live-site links.
+Do not include credentials, private database content or local filesystem paths.
+
+The homepage combines this catalogue with projects from `NEXT_PUBLIC_API_URL`.
+Existing API descriptions are retained; matching titles, GitHub links or live
+links prevent duplicate catalogue cards. If the API is unavailable, the
+catalogue still appears. This fallback applies only to project cards; the
+contact form still requires the backend.
+
+ClassBridge is linked at `https://classbridge.mozytech.com.ng`. Editing its
+portfolio card does not modify its application files or database.
+
+Run `npm test` with Node.js 22.18+ or 24+ to check catalogue merging.
+
 ## Getting Started
 
 First, run the development server:
