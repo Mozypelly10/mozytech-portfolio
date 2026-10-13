@@ -123,6 +123,8 @@ export const portfolioProjects: Project[] = [
     description: "Monthly greeting and goodwill flyers designed for sharing with people and communities. This work combines messages, layout, typography and branded visuals for social communication.",
     techStack: ["Flyer Design", "Social Graphics", "Typography", "Layout"],
     category: "Flyers & social design",
+    imageUrl: "/projects/mozytech-october-flyer.jpg",
+    highlights: ["October greeting flyer for MOZYTECH", "Blue-and-white composition with branded typography and technology imagery", "Cybersecurity, software development, cloud solutions and IT consulting service highlights"],
     note: "Graphic design collection",
     featured: false,
     createdAt: "",
@@ -181,8 +183,8 @@ export function mergeProjects(existing: Project[]): Project[] {
         featured: false, note: entry.note, highlights: entry.highlights,
         techStack: entry.techStack, category: entry.category,
       } : {}),
-      ...(["mozytech-identity", "orbit-broadband-identity"].includes(entry.id) ? {
-        imageUrl: entry.imageUrl, category: entry.category,
+      ...(["mozytech-identity", "orbit-broadband-identity", "monthly-greeting-flyers"].includes(entry.id) ? {
+        imageUrl: entry.imageUrl, category: entry.category, highlights: entry.highlights,
       } : {}),
       ...(entry.id === "classbridge" ? {
         title: entry.title, description: entry.description, techStack: entry.techStack,
