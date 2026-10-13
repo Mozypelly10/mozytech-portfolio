@@ -14,9 +14,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mozypelly — Network Security Engineer & Developer",
+  title: "Mozytech — Security, Software & Brand Design",
   description:
-    "Network security engineer, ethical hacker, and developer. Penetration testing, cloud deployment, and mentorship under the Mozytech brand.",
+    "Explore Oluwafemi Moses Durosomo’s work in cybersecurity, cloud infrastructure, application development and brand identity, including ClassBridge and Wonzay Kollections.",
 };
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
     >
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-[#0B0E11] text-[#EDEFF2]"
+        className="min-h-full flex flex-col"
       >
         {children}
       </body>

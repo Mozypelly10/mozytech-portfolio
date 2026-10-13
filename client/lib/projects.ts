@@ -10,6 +10,7 @@ export interface Project {
   createdAt: string;
   category?: string;
   note?: string;
+  highlights?: string[];
 }
 
 // Public portfolio content only. Keep credentials and application data out of this file.
@@ -17,10 +18,24 @@ export const portfolioProjects: Project[] = [
   {
     id: "classbridge",
     title: "ClassBridge",
-    description: "School management software for student records, attendance, marks, printable report cards and parent notices. Includes separate school workspaces, CSV student import and two-step verification.",
-    techStack: ["JavaScript", "Node.js", "SQLite", "HTML", "CSS"],
+    description: "A responsive school management website for growing schools. ClassBridge brings student records, daily attendance, grades and printable reports together with accounts for administrators, assigned-class teachers and parents linked to their children.",
+    techStack: ["JavaScript", "HTML", "CSS", "Responsive Web Design"],
     liveUrl: "https://classbridge.mozytech.com.ng",
     category: "School software",
+    imageUrl: "/projects/classbridge.png",
+    note: "Explore the fictional sample school",
+    highlights: ["Student and guardian records, with validated CSV imports", "Attendance registers, score entry and printable report cards", "Assigned-class teacher accounts and linked parent accounts", "Parent notices inside the portal; automatic SMS, WhatsApp and email are not connected", "Optional Google Authenticator for administrators and a sample school to explore"],
+    featured: true,
+    createdAt: "",
+  },
+  {
+    id: "wonzay-brand-identity",
+    title: "Wonzay Kollections — Brand Identity",
+    description: "A complete visual identity for Wonzay Kollections, extending its purple-and-gold monogram into a consistent family of logo layouts, print artwork, packaging and digital templates.",
+    techStack: ["Visual Identity", "Logo System", "Typography", "Packaging", "Print Design", "Social Templates"],
+    imageUrl: "/projects/wonzay-brand.png",
+    category: "Branding & design",
+    highlights: ["Primary logo, monogram, wordmark and colour variants", "Business card, letterhead, quotation and invoice artwork", "Clothing tags, packaging, stickers and thank-you cards", "Social templates, email-signature artwork and editable owner handoff"],
     featured: true,
     createdAt: "",
   },
@@ -111,7 +126,12 @@ export function mergeProjects(existing: Project[]): Project[] {
     );
     if (index < 0) return entry;
     const [project] = remaining.splice(index, 1);
-    return { ...entry, ...project, featured: entry.featured || project.featured,
+    return { ...entry, ...project,
+      ...(entry.id === "classbridge" ? {
+        title: entry.title, description: entry.description, techStack: entry.techStack,
+        imageUrl: entry.imageUrl, highlights: entry.highlights, note: entry.note,
+      } : {}),
+      featured: entry.featured || project.featured,
       githubUrl: project.githubUrl || entry.githubUrl,
       liveUrl: project.liveUrl || entry.liveUrl };
   });

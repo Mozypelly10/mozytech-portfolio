@@ -7,13 +7,22 @@ its title, description, technologies and any public source or live-site links.
 Do not include credentials, private database content or local filesystem paths.
 
 The homepage combines this catalogue with projects from `NEXT_PUBLIC_API_URL`.
-Existing API descriptions are retained; matching titles, GitHub links or live
+Existing API descriptions are retained, except for ClassBridge, whose current
+catalogue description and visual take precedence over older database content;
+matching titles, GitHub links or live
 links prevent duplicate catalogue cards. If the API is unavailable, the
 catalogue still appears. This fallback applies only to project cards; the
 contact form still requires the backend.
 
 ClassBridge is linked at `https://classbridge.mozytech.com.ng`. Editing its
 portfolio card does not modify its application files or database.
+
+Its current portfolio summary follows the public homepage reviewed on
+13 October 2026, including assigned-class teacher accounts and linked parent
+accounts. Backend technologies are omitted because the older local Node/SQLite
+pilot does not establish the deployed site's backend. Public visual previews
+are stored in `public/projects`; the ClassBridge artwork uses fictional demo
+records. Wonzay branding is a separate case study from its cloud deployment.
 
 Run `npm test` with Node.js 22.18+ or 24+ to check catalogue merging.
 
