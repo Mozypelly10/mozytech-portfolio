@@ -14,9 +14,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mozytech — Security, Software & Brand Design",
+  title: "MOZYTECH — Cybersecurity, Apps, Branding & Training",
   description:
-    "Explore Oluwafemi Moses Durosomo’s work in cybersecurity, cloud infrastructure, application development and brand identity, including ClassBridge and Wonzay Kollections.",
+    "MOZYTECH is Oluwafemi Moses Durosomo’s registered company. Explore cybersecurity, web and mobile applications, cloud infrastructure, logo design, branding, flyers and technical training.",
+  icons: { icon: "/brand/mozytech-logo.jpg" },
 };
 
 export default function RootLayout({

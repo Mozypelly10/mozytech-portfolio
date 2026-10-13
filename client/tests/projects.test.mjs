@@ -4,7 +4,7 @@ import { mergeProjects, portfolioProjects } from "../lib/projects.ts";
 
 test("catalogue remains available without the projects service", () => {
   const projects = mergeProjects([]);
-  assert.equal(projects.length, 8);
+  assert.equal(projects.length, 12);
   assert.equal(projects[0].title, "ClassBridge");
   assert.equal(projects[0].liveUrl, "https://classbridge.mozytech.com.ng");
   assert.equal(new Set(projects.map((project) => project.id)).size, projects.length);
@@ -17,7 +17,7 @@ test("ClassBridge is current while unlisted database projects are preserved", ()
   ];
   const snapshot = JSON.stringify(existing);
   const projects = mergeProjects(existing);
-  assert.equal(projects.length, 9);
+  assert.equal(projects.length, 13);
   assert.equal(projects[0].description, portfolioProjects[0].description);
   assert.equal(projects[0].imageUrl, "/projects/classbridge.png");
   assert.ok(projects[0].description.includes("teachers"));
@@ -27,10 +27,21 @@ test("ClassBridge is current while unlisted database projects are preserved", ()
 });
 
 test("repository links identify existing projects despite different titles", () => {
-  const existing = { ...portfolioProjects[4], title: "Mailer App", githubUrl: "https://github.com/Mozypelly10/Mailer-App/", description: "Existing mailer content" };
+  const mailer = portfolioProjects.find((project) => project.id === "mailer-app");
+  const existing = { ...mailer, title: "Mailer App", githubUrl: "https://github.com/Mozypelly10/Mailer-App/", description: "Existing mailer content" };
   const projects = mergeProjects([existing]);
-  assert.equal(projects.length, 8);
-  assert.equal(projects[4].description, "Existing mailer content");
+  assert.equal(projects.length, 12);
+  assert.equal(projects.find((project) => project.id === "mailer-app").description, "Existing mailer content");
+});
+
+test("unapproved Wonzay artwork cannot return from older database content", () => {
+  const branding = portfolioProjects.find((project) => project.id === "wonzay-brand-identity");
+  const existing = { ...branding, id: "older-database-id", title: "Wonzay Kollections — Brand Identity", imageUrl: "/projects/wonzay-brand.png", featured: true };
+  const projects = mergeProjects([existing]);
+  assert.equal(projects.length, 12);
+  const merged = projects.find((project) => project.id === "older-database-id");
+  assert.equal(merged.imageUrl, undefined);
+  assert.equal(merged.featured, false);
 });
 
 test("missing live links are filled from the catalogue", () => {

@@ -24,6 +24,18 @@ pilot does not establish the deployed site's backend. Public visual previews
 are stored in `public/projects`; the ClassBridge artwork uses fictional demo
 records. Wonzay branding is a separate case study from its cloud deployment.
 
+MOZYTECH's original cyan-and-black logo leads the header and homepage. Its
+source is the company logo supplied in the earlier wallpaper conversation;
+no replacement mark has been generated. The catalogue also includes the
+company identity, Orbit Broadband logo, monthly greeting flyers and this
+portfolio website. Web/desktop, mobile, cloud, logo/branding, flyer and
+automation filters expose the different areas of work.
+
+The previous Wonzay logo previews are not used: the owner identified them as
+different from their own artwork. Replace the Wonzay card image only after
+the correct logo is supplied. Monthly greeting flyer images have not yet been
+located, so the collection describes the work without inventing examples.
+
 Run `npm test` with Node.js 22.18+ or 24+ to check catalogue merging.
 
 ## Getting Started

@@ -11,6 +11,7 @@ export interface Project {
   category?: string;
   note?: string;
   highlights?: string[];
+  aliases?: string[];
 }
 
 // Public portfolio content only. Keep credentials and application data out of this file.
@@ -25,17 +26,6 @@ export const portfolioProjects: Project[] = [
     imageUrl: "/projects/classbridge.png",
     note: "Explore the fictional sample school",
     highlights: ["Student and guardian records, with validated CSV imports", "Attendance registers, score entry and printable report cards", "Assigned-class teacher accounts and linked parent accounts", "Parent notices inside the portal; automatic SMS, WhatsApp and email are not connected", "Optional Google Authenticator for administrators and a sample school to explore"],
-    featured: true,
-    createdAt: "",
-  },
-  {
-    id: "wonzay-brand-identity",
-    title: "Wonzay Kollections — Brand Identity",
-    description: "A complete visual identity for Wonzay Kollections, extending its purple-and-gold monogram into a consistent family of logo layouts, print artwork, packaging and digital templates.",
-    techStack: ["Visual Identity", "Logo System", "Typography", "Packaging", "Print Design", "Social Templates"],
-    imageUrl: "/projects/wonzay-brand.png",
-    category: "Branding & design",
-    highlights: ["Primary logo, monogram, wordmark and colour variants", "Business card, letterhead, quotation and invoice artwork", "Clothing tags, packaging, stickers and thank-you cards", "Social templates, email-signature artwork and editable owner handoff"],
     featured: true,
     createdAt: "",
   },
@@ -56,6 +46,7 @@ export const portfolioProjects: Project[] = [
     description: "A Flutter mobile application with Firebase authentication, location updates in Firestore and a Google Maps interface for viewing family members. Includes tracking controls and emergency-contact management.",
     techStack: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Google Maps"],
     category: "Mobile application",
+    highlights: ["Flutter interface for mobile devices", "Firebase authentication and Firestore location updates", "Google Maps view and tracking controls", "Emergency-contact management"],
     note: "Mobile project · public download coming soon",
     featured: false,
     createdAt: "",
@@ -103,6 +94,62 @@ export const portfolioProjects: Project[] = [
     featured: false,
     createdAt: "",
   },
+  {
+    id: "mozytech-identity",
+    title: "MOZYTECH — My Brand Identity",
+    description: "The visual identity I designed for my own company: a cyan-and-black M monogram and a rounded wordmark. A personal example of my logo design and approach to building a recognisable brand.",
+    techStack: ["Logo Design", "Monogram", "Brand Identity"],
+    imageUrl: "/brand/mozytech-logo.jpg",
+    category: "Branding & design",
+    note: "My company · my visual identity",
+    featured: false,
+    createdAt: "",
+    highlights: ["Cyan-and-black company mark", "M monogram with the MOZYTECH wordmark", "A consistent identity for my company’s communications"],
+  },
+  {
+    id: "orbit-broadband-identity",
+    title: "Orbit Broadband — Logo Design",
+    description: "A broadband identity built around an orbital symbol that takes the place of the O in Orbit. Cyan and coral accents, wireless signal details and the supporting wordmark communicate connectivity.",
+    techStack: ["Logo Design", "Typography", "Telecommunications Branding"],
+    imageUrl: "/projects/orbit-logo.jpg",
+    category: "Branding & design",
+    note: "Logo & brand identity",
+    featured: false,
+    createdAt: "",
+  },
+  {
+    id: "monthly-greeting-flyers",
+    title: "Monthly Greetings & Social Flyers",
+    description: "Monthly greeting and goodwill flyers designed for sharing with people and communities. This work combines messages, layout, typography and branded visuals for social communication.",
+    techStack: ["Flyer Design", "Social Graphics", "Typography", "Layout"],
+    category: "Flyers & social design",
+    note: "Graphic design collection",
+    featured: false,
+    createdAt: "",
+  },
+  {
+    id: "mozytech-portfolio",
+    title: "MOZYTECH — Portfolio Website",
+    description: "My portfolio website, bringing software, mobile apps, cloud projects and creative work into one responsive experience, with project filters, case-study details and contact enquiries.",
+    techStack: ["Next.js", "React", "TypeScript", "CSS"],
+    category: "Web application",
+    githubUrl: "https://github.com/Mozypelly10/mozytech-portfolio",
+    note: "Web design & development",
+    featured: false,
+    createdAt: "",
+  },
+  {
+    id: "wonzay-brand-identity",
+    title: "Wonzay Kollections — Full Branding",
+    aliases: ["Wonzay Kollections — Brand Identity"],
+    description: "A branding project bringing together logo design, typography, stationery, packaging artwork and social templates for Wonzay Kollections, with an editable handoff for the business owner.",
+    techStack: ["Visual Identity", "Logo System", "Typography", "Packaging", "Print Design", "Social Templates"],
+    category: "Branding & design",
+    highlights: ["Primary logo, monogram, wordmark and colour variants", "Business card, letterhead, quotation and invoice artwork", "Clothing tags, packaging, stickers and thank-you cards", "Social templates, email-signature artwork and editable owner handoff"],
+    note: "Brand identity, packaging & digital design",
+    featured: false,
+    createdAt: "",
+  },
 ];
 
 function normalize(value: string) {
@@ -118,7 +165,8 @@ export function mergeProjects(existing: Project[]): Project[] {
   const remaining = [...existing];
   const projects = portfolioProjects.map((entry) => {
     const index = remaining.findIndex((project) =>
-      normalize(project.title) === normalize(entry.title) ||
+      project.id === entry.id ||
+      [entry.title, ...(entry.aliases || [])].some((title) => normalize(project.title) === normalize(title)) ||
       ["githubUrl", "liveUrl"].some((field) => {
         const key = field as "githubUrl" | "liveUrl";
         return Boolean(linkKey(entry[key]) && linkKey(entry[key]) === linkKey(project[key]));
@@ -127,11 +175,15 @@ export function mergeProjects(existing: Project[]): Project[] {
     if (index < 0) return entry;
     const [project] = remaining.splice(index, 1);
     return { ...entry, ...project,
+      ...(entry.id === "wonzay-brand-identity" ? {
+        title: entry.title, description: entry.description, imageUrl: undefined,
+        featured: false, note: entry.note,
+      } : {}),
       ...(entry.id === "classbridge" ? {
         title: entry.title, description: entry.description, techStack: entry.techStack,
         imageUrl: entry.imageUrl, highlights: entry.highlights, note: entry.note,
       } : {}),
-      featured: entry.featured || project.featured,
+      featured: entry.id === "wonzay-brand-identity" ? false : entry.featured || project.featured,
       githubUrl: project.githubUrl || entry.githubUrl,
       liveUrl: project.liveUrl || entry.liveUrl };
   });
